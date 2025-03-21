@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExploradorController;
+use App\Http\Controllers\InventarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,7 @@ Route::post('/exploradores', [ExploradorController::class, 'store']);
 
 //Essa é a rota para atualizar a localização de um explorador específico, passando o id dele na rota
 Route::put('/exploradores/{id}', [ExploradorController::class, 'update']);
+
+//Essa é a rota para adicionar um item para um explorador
+Route::post('/inventario', [InventarioController::class, 'store']);
+
