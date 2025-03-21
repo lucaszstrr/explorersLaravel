@@ -62,8 +62,10 @@ class InventarioController extends Controller
         $explorador1Itens = $explorador1->inventario->whereIn('id', $validateTrade['explorador1_itens']);
         $explorador2Itens = $explorador2->inventario->whereIn('id', $validateTrade['explorador2_itens']);
 
+        //Essa variavel foi criada para depois fazer a somatoria dos valores dos itens
         $somaItensExp1 = 0;
 
+        //Esse foreach é usado para percorrer os itens que estão dentro do array
         foreach($explorador1Itens as $item){
             $somaItensExp1 += $item->valorItem;
         }
@@ -80,12 +82,12 @@ class InventarioController extends Controller
         ], 400);
         }
 
+        //O foreach é usado novamente para procurar o id do explorador e atualizar ele mudando o id para o outro explorador
         foreach($explorador1Itens as $item){
             $item->update([
                 'explorador_id' => $explorador2->id
             ]);
         }
-
 
         foreach($explorador2Itens as $item){
             $item->update([
@@ -94,7 +96,7 @@ class InventarioController extends Controller
         }
 
         return response()->json([
-            $explorador1
-        ]);
+            'message' => 'Troca feita com sucesso'
+        ], 201);
     }
 }
