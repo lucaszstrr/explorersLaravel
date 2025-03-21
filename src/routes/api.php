@@ -29,3 +29,6 @@ Route::put('/exploradores/{id}', [ExploradorController::class, 'update']);
 //Essa é a rota para adicionar um item para um explorador
 Route::post('/inventario', [InventarioController::class, 'store']);
 
+//Essa é a rota para fazer a troca de itens entre exploradores
+Route::post('/exploradores/trocar', [InventarioController::class, 'trade']);
+
