@@ -12,9 +12,12 @@ class Inventario extends Model
     protected $fillable = [
         'nome', 
         'valorItem',
+        'explorador_id',
         'latitude',
         'longitude',
     ];
+
+    protected $table = "inventario";
 
     public function explorador(){
         return $this->belongsTo(Explorador::class);
