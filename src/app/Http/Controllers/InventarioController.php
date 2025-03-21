@@ -48,35 +48,53 @@ class InventarioController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Inventario $inventario)
-    {
-        //
-    }
+    public function trade(Request $request){
+        $validateTrade = $request->validate([
+            'explorador1_id' => 'required | integer | exists:exploradores,id',
+            'explorador1_itens.*' => 'required | integer | distinct | exists:inventario,id',
+            'explorador2_id' => 'required | integer | exists:exploradores,id',
+            'explorador2_itens.*' => 'required | integer | distinct | exists:inventario,id',
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Inventario $inventario)
-    {
-        //
-    }
+        $explorador1 = Explorador::with('inventario')->findOrFail($validateTrade['explorador1_id']);
+        $explorador2 = Explorador::with('inventario')->findOrFail($validateTrade['explorador2_id']);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Inventario $inventario)
-    {
-        //
-    }
+        $explorador1Itens = $explorador1->inventario->whereIn('id', $validateTrade['explorador1_itens']);
+        $explorador2Itens = $explorador2->inventario->whereIn('id', $validateTrade['explorador2_itens']);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Inventario $inventario)
-    {
-        //
+        $somaItensExp1 = 0;
+
+        foreach($explorador1Itens as $item){
+            $somaItensExp1 += $item->valorItem;
+        }
+
+        $somaItensExp2 = 0;
+
+        foreach($explorador2Itens as $item){
+            $somaItensExp2 += $item->valorItem;
+        }
+
+        if($somaItensExp1 != $somaItensExp2){
+            return response()->json([
+            'error' => 'Os valores não são compatíveis para fazer a troca'
+        ], 400);
+        }
+
+        foreach($explorador1Itens as $item){
+            $item->update([
+                'explorador_id' => $explorador2->id
+            ]);
+        }
+
+
+        foreach($explorador2Itens as $item){
+            $item->update([
+                'explorador_id' => $explorador1->id
+            ]);
+        }
+
+        return response()->json([
+            $explorador1
+        ]);
     }
 }
