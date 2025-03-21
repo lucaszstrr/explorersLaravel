@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Explorador;
 use App\Models\Inventario;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,23 @@ class InventarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateItem = $request->validate([
+            'nome' => 'required | string | max:255',
+            'valorItem' => 'required | integer',
+            'explorador_id' => 'required | integer | exists:exploradores,id',
+            'latitude' => 'required | string | max:255',
+            'longitude' => 'required | string | max:255',
+        ]);
+
+        Explorador::findOrFail($validateItem['explorador_id']);
+
+        $inventario = Inventario::create($validateItem);
+
+        return response()->json( [
+            'message' => 'Item foi adicionado com sucesso!',
+            $inventario
+        ], 201);
+
     }
 
     /**
