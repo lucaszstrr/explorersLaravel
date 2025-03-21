@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nome');
             $table->integer('valorItem');
-            $table->foreignId('explorador_id')
-                ->constrained('exploradores')
-                ->onDelete('cascade');
+            $table->integer('explorador_id');
+//               ->constrained('exploradores')
+//               ->onDelete('cascade');
             $table->string('latitude');
             $table->string('longitude');
             $table->timestamps();
