@@ -78,6 +78,7 @@ class ExploradorController extends Controller
             'longitude' => $atualizaLoc['longitude']
         ]);
 
+        //Aqui é a resposta que vai ser retornada em caso de sucesso
         return response()->json([
             $explorer['latitude'],
             $explorer['longitude'],
