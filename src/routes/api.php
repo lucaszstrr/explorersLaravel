@@ -32,3 +32,6 @@ Route::post('/inventario', [InventarioController::class, 'store']);
 //Essa é a rota para fazer a troca de itens entre exploradores
 Route::post('/exploradores/trocar', [InventarioController::class, 'trade']);
 
+//Essa é a rota para retornar o explorador e seu inventario
+Route::get('/exploradores/{id}', [ExploradorController::class, 'show']);
+
