@@ -12,7 +12,7 @@ class ExploradorController extends Controller
      */
     public function index()
     {
-        return "Sucesso";
+        //
     }
 
     /**
@@ -48,7 +48,11 @@ class ExploradorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        //Essa variavel armazena a model Explorador COM(WITH) seu respectivo inventario
+        $exploradorMostrar = Explorador::with('inventario')->findOrFail($id);
+
+        //Retorna o json da variavel acima
+        return response()->json($exploradorMostrar);
     }
 
     /**
@@ -86,6 +90,8 @@ class ExploradorController extends Controller
         ], 201);
 
     }
+
+    
 
     /**
      * Remove the specified resource from storage.
