@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Explorador;
+use App\Models\Localizacao;
 use Illuminate\Http\Request;
 
 class ExploradorController extends Controller
@@ -36,6 +37,13 @@ class ExploradorController extends Controller
         ]);
 
         $explorador = Explorador::create($validateData);
+
+        //Chamar a model de localizacao aqui
+        $historicoLoc = Localizacao::create([
+            'explorador_id' => $explorador->id,
+            'latitude' => $validateData['latitude'],
+            'longitude' => $validateData['longitude'],
+        ]);
 
         return response()->json([
             $explorador
@@ -91,7 +99,7 @@ class ExploradorController extends Controller
 
     }
 
-    
+
 
     /**
      * Remove the specified resource from storage.
