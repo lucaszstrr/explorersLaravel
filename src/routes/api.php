@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ExploradorController;
 use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\LocalizacaoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,4 +35,6 @@ Route::post('/exploradores/trocar', [InventarioController::class, 'trade']);
 
 //Essa é a rota para retornar o explorador e seu inventario
 Route::get('/exploradores/{id}', [ExploradorController::class, 'show']);
+
+Route::get('/exploradores/{id}/historico', [LocalizacaoController::class, 'show']);
 
