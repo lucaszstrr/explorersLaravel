@@ -37,5 +37,5 @@ Route::post('/exploradores/trocar', [InventarioController::class, 'trade']);
 Route::get('/exploradores/{id}', [ExploradorController::class, 'show']);
 
 //Essa é a rota para retornar o historico das localizacoes de determinado explorador
-Route::get('/exploradores/{id}/historico', [LocalizacaoController::class, 'show']);
+Route::get('/exploradores/{explorador_id}/historico', [LocalizacaoController::class, 'show']);
 
