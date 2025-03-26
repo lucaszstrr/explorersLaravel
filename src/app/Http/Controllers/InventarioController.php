@@ -103,4 +103,32 @@ class InventarioController extends Controller
             'message' => 'Troca feita com sucesso'
         ], 201);
     }
+
+    public function relatorio(){
+
+        $somaItensTotal = 0;
+
+        $valorTodosItens = Inventario::select('valorItem')->get();
+
+        //Percorre os valores para fazer a soma
+        foreach($valorTodosItens as $item){
+            $somaItensTotal += $item->valorItem;
+        }
+
+        //Percorre os valores e faz a media 
+        foreach($valorTodosItens as $item){
+            $media = $somaItensTotal / count($valorTodosItens);
+        }
+
+        //Aqui é feita uma contagem de valores maiores que 100 na coluna 'valorItem' da model Inventario
+        $valoresMaiores = count(Inventario::where('valorItem', '>=', 100)->get());
+
+
+        return response()->json([
+            "O valor total de todos os itens é de   $somaItensTotal",
+            "A média dos valores dos itens é de   $media",
+            "A quantidade de valores maiores que 100 é $valoresMaiores",
+        ]);
+
+    }
 }

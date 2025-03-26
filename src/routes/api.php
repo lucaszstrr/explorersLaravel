@@ -39,3 +39,5 @@ Route::get('/exploradores/{id}', [ExploradorController::class, 'show']);
 //Essa é a rota para retornar o historico das localizacoes de determinado explorador
 Route::get('/exploradores/{explorador_id}/historico', [LocalizacaoController::class, 'show']);
 
+//Essa é a rota para retornar todos os itens de todos os inventários, valor medio e itens com valor maior que 100
+Route::get('/relatorio', [InventarioController::class, 'relatorio']);
