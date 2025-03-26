@@ -76,6 +76,10 @@ class InventarioController extends Controller
             $somaItensExp2 += $item->valorItem;
         }
 
+        // return response()->json([
+        //     $somaItensExp2
+        // ]);
+
         if($somaItensExp1 != $somaItensExp2){
             return response()->json([
             'error' => 'Os valores não são compatíveis para fazer a troca'
