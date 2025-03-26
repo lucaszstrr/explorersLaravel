@@ -108,6 +108,7 @@ class InventarioController extends Controller
 
         $somaItensTotal = 0;
 
+        //Seleciona a coluna valorItem da tabela Inventario
         $valorTodosItens = Inventario::select('valorItem')->get();
 
         //Percorre os valores para fazer a soma
