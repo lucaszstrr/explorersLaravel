@@ -1,4 +1,4 @@
-# Projeto Laravel com Docker
+# Projeto Explorers Laravel
 
 ## Acesso ao phpMyAdmin
 
