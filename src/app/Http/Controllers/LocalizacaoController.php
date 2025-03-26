@@ -34,11 +34,22 @@ class LocalizacaoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $explorador_id)
     {
-        $historicoLoc = Localizacao::findOrFail($id);
+        $historicoLoc = Localizacao::findOrFail($explorador_id);
 
-        return response()->json($historicoLoc);
+        if(!$historicoLoc){
+            return response()->json([
+                "message" => "Explorador não encontrado"
+            ], 400);
+        }
+
+        $historicoLoc = Localizacao::where('explorador_id', $explorador_id)->get();
+
+        return response()->json([
+            "message" => "Este é o histórico de localizações",
+            $historicoLoc
+        ]);
     }
 
     /**
