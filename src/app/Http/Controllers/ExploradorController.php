@@ -90,6 +90,7 @@ class ExploradorController extends Controller
             'longitude' => $atualizaLoc['longitude']
         ]);
 
+        //AQUI É CRIADO UM NOVO REGISTRO NA TABELA LOCALIZACOES, COM OS DADOS ATUALIZADOS DA NOVA LOC
         $novaLoc = Localizacao::create([
             'explorador_id'=> $explorer->id,   
             'latitude' => $atualizaLoc['latitude'],
